@@ -1,6 +1,36 @@
 AI Coding Agent Instructions
 
-1. Core Principles
+> **Workflow:** Understand the request → Inspect the project → Check dependencies and versions → Understand state and data flow → Determine the smallest correct change → Implement → Verify → Preserve only high-value knowledge.
+
+## Table of Contents
+
+1. [Core Principles](#1-core-principles)
+2. [Understand the Task Before Coding](#2-understand-the-task-before-coding)
+3. [Investigate Before Editing](#3-investigate-before-editing)
+4. [Evidence Priority](#4-evidence-priority)
+5. [Dependencies and Versions](#5-dependencies-and-versions)
+6. [State, Data Flow, and Side Effects](#6-state-data-flow-and-side-effects)
+7. [Architecture](#7-architecture)
+8. [Implementation](#8-implementation)
+9. [Surgical Changes](#9-surgical-changes)
+10. [Git and Change Hygiene](#10-git-and-change-hygiene)
+11. [Debugging](#11-debugging)
+12. [Security and Data Safety](#12-security-and-data-safety)
+13. [UI and User-Facing Changes](#13-ui-and-user-facing-changes)
+14. [Testing and Verification](#14-testing-and-verification)
+15. [Performance Awareness](#15-performance-awareness)
+16. [Production Awareness](#16-production-awareness)
+17. [Tool Usage](#17-tool-usage)
+18. [Scope Control](#18-scope-control)
+19. [User Corrections](#19-user-corrections)
+20. [Persistent Project Memory](#20-persistent-project-memory)
+21. [Memory Quality Gate](#21-memory-quality-gate)
+22. [Communication](#22-communication)
+23. [Completion Checklist](#23-completion-checklist)
+
+⸻
+
+## 1. Core Principles
 
 * Understand before changing.
 * Do not guess when important information is unknown.
@@ -13,7 +43,7 @@ The goal is not to write the most code. The goal is to make the correct change w
 
 ⸻
 
-2. Understand the Task Before Coding
+## 2. Understand the Task Before Coding
 
 Before making substantial changes, determine:
 
@@ -39,7 +69,7 @@ Do not begin implementation based on an unverified interpretation when the uncer
 
 ⸻
 
-3. Investigate Before Editing
+## 3. Investigate Before Editing
 
 Before editing code, inspect the smallest relevant part of the repository.
 
@@ -64,7 +94,7 @@ For shared code, inspect its consumers before changing its behavior.
 
 ⸻
 
-4. Evidence Priority
+## 4. Evidence Priority
 
 When information conflicts, prefer evidence in this order:
 
@@ -79,7 +109,7 @@ Never treat old documentation, memory, or assumptions as stronger evidence than 
 
 ⸻
 
-5. Dependencies and Versions
+## 5. Dependencies and Versions
 
 Before using or changing an API:
 
@@ -99,7 +129,7 @@ Existing project choices take precedence unless the task explicitly requires cha
 
 ⸻
 
-6. State, Data Flow, and Side Effects
+## 6. State, Data Flow, and Side Effects
 
 For changes involving shared state or data, determine:
 
@@ -132,7 +162,7 @@ Do not change shared behavior without inspecting its consumers.
 
 ⸻
 
-7. Architecture
+## 7. Architecture
 
 Respect existing architectural boundaries.
 
@@ -151,7 +181,7 @@ Create abstractions when they solve a concrete, recurring problem or are require
 
 ⸻
 
-8. Implementation
+## 8. Implementation
 
 Prefer existing:
 
@@ -178,7 +208,7 @@ When multiple valid approaches exist, prefer the one that:
 
 ⸻
 
-9. Surgical Changes
+## 9. Surgical Changes
 
 Keep changes focused.
 
@@ -198,7 +228,32 @@ If a broader change is necessary, explain why before expanding the scope.
 
 ⸻
 
-10. Debugging
+## 10. Git and Change Hygiene
+
+Keep the repository history clean and reviewable.
+
+Before committing:
+
+* Review your own diff (`git status`, `git diff`) before committing.
+* Confirm the commit contains only changes required by the task.
+
+Do not commit:
+
+* Debug output, logs, or temporary files.
+* Generated artifacts or build output (unless the project intentionally tracks them).
+* Local convenience changes (editor settings, personal configuration).
+* Secrets, credentials, tokens, or keys — in any form.
+
+Commit behavior:
+
+* Follow the repository's existing commit message conventions.
+* Keep one commit focused on one change; do not mix unrelated edits into the same commit.
+* Do not rewrite or force-push shared git history unless the project explicitly allows it.
+* Follow the repository's branch, review, and CI workflow; do not bypass required checks.
+
+⸻
+
+## 11. Debugging
 
 When debugging:
 
@@ -233,7 +288,7 @@ Then investigate further or ask for the missing information.
 
 ⸻
 
-11. Security and Data Safety
+## 12. Security and Data Safety
 
 Consider security whenever relevant.
 
@@ -262,7 +317,7 @@ Do not add credentials, tokens, private keys, or other sensitive information to 
 
 ⸻
 
-12. UI and User-Facing Changes
+## 13. UI and User-Facing Changes
 
 For UI changes:
 
@@ -280,7 +335,7 @@ Verify the UI when practical.
 
 ⸻
 
-13. Testing and Verification
+## 14. Testing and Verification
 
 A change that looks correct is not necessarily correct.
 
@@ -313,7 +368,28 @@ Clearly state important areas that could not be verified.
 
 ⸻
 
-14. Production Awareness
+## 15. Performance Awareness
+
+Consider performance only when it is relevant to the change.
+
+Check when applicable:
+
+* N+1 queries and overall query counts.
+* Algorithm and data-structure choice.
+* Latency and timeouts.
+* Memory and cache usage.
+* Payload / bundle size.
+* Concurrent load and throughput.
+
+Do not micro-optimize unrelated code.
+
+Do not guess: base performance changes on measurement or a clear, stated reason.
+
+When a change is performance-sensitive, run the relevant check or benchmark before and after the change.
+
+⸻
+
+## 16. Production Awareness
 
 Before making changes that may affect production, consider:
 
@@ -336,7 +412,7 @@ Avoid destructive changes unless explicitly required and justified.
 
 ⸻
 
-15. Tool Usage
+## 17. Tool Usage
 
 Use tools to reduce uncertainty.
 
@@ -353,7 +429,7 @@ Do not use tools merely because they are available.
 
 ⸻
 
-16. Scope Control
+## 18. Scope Control
 
 Before modifying something unrelated, ask:
 
@@ -367,7 +443,7 @@ If an unrelated issue is discovered, report it separately rather than fixing it 
 
 ⸻
 
-17. User Corrections
+## 19. User Corrections
 
 Treat explicit user corrections as authoritative for the requested behavior.
 
@@ -383,7 +459,7 @@ Only persist a correction when it is:
 
 ⸻
 
-18. Persistent Project Memory
+## 20. Persistent Project Memory
 
 Project memory is stored in .ai/.
 
@@ -458,7 +534,7 @@ Do not store raw logs.
 
 ⸻
 
-19. Memory Quality Gate
+## 21. Memory Quality Gate
 
 Write information to .ai/ only when all of these are true:
 
@@ -504,7 +580,7 @@ Memory is a curated knowledge base, not a diary.
 
 ⸻
 
-20. Communication
+## 22. Communication
 
 Keep communication concise and factual.
 
@@ -527,7 +603,7 @@ After work:
 
 ⸻
 
-21. Completion Checklist
+## 23. Completion Checklist
 
 Before considering a task complete, verify:
 

@@ -1,8 +1,39 @@
-AI Agent Project Kit
+# AI Agent Project Kit
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 通用 AI Coding Agent 项目规范与持久化项目记忆系统。
 
-这是什么？
+## 目录
+
+- [这是什么？](#这是什么)
+- [为什么需要它？](#为什么需要它)
+- [什么时候适合使用？](#什么时候适合使用)
+- [什么时候不需要？](#什么时候不需要)
+- [仓库结构](#仓库结构)
+- [快速开始](#快速开始)
+- [如何安装？](#如何安装)
+- [第一次使用](#第一次使用)
+- [日常开发](#日常开发)
+- [架构修改](#架构修改)
+- [Debug](#debug)
+- [推荐项目结构](#推荐项目结构)
+- [AGENTS.md 是干什么的？](#agentsmd-是干什么的)
+- [.ai/ 是干什么的？](#ai-是干什么的)
+- [什么情况下应该写入记忆？](#什么情况下应该写入记忆)
+- [不要把 .ai/ 变成垃圾桶](#不要把-ai-变成垃圾桶)
+- [为什么只保留一个 AGENTS.md？](#为什么只保留一个-agentsmd)
+- [为什么记忆单独放 .ai/？](#为什么记忆单独放-ai)
+- [与具体框架无关](#与具体框架无关)
+- [定制规则](#定制规则)
+- [常见问题](#常见问题)
+- [最终原则](#最终原则)
+- [参与贡献](#参与贡献)
+- [许可证](#许可证)
+
+⸻
+
+## 这是什么？
 
 这是一个用于 AI 编程 Agent 的通用项目规则模板。
 
@@ -48,7 +79,7 @@ AI Agent Project Kit
 
 ⸻
 
-为什么需要它？
+## 为什么需要它？
 
 AI Coding Agent 最大的问题通常不是“不会写代码”，而是：
 
@@ -70,7 +101,7 @@ AI Coding Agent 最大的问题通常不是“不会写代码”，而是：
 
 ⸻
 
-什么时候适合使用？
+## 什么时候适合使用？
 
 1. 已有项目持续开发
 
@@ -173,7 +204,7 @@ API 不存在
 
 ⸻
 
-什么时候不需要？
+## 什么时候不需要？
 
 如果只是：
 
@@ -188,8 +219,186 @@ API 不存在
 
 ⸻
 
-推荐项目结构
+## 仓库结构
 
+```
+agents/
+├── AGENTS.md            # Agent 行为规则（英文，标准入口）
+├── AGENTS.zh-CN.md      # 同一套规则的中文版（参考）
+├── README.md            # 本指南（英文）
+├── README.zh-CN.md      # 本指南（中文）
+├── install.sh           # 一键安装脚本
+├── .ai/                 # 项目记忆模板
+│   ├── PROJECT.md
+│   ├── ARCHITECTURE.md
+│   ├── DECISIONS.md
+│   └── TROUBLESHOOTING.md
+└── LICENSE              # MIT
+```
+
+Agent 实际读取的入口是 `AGENTS.md`。
+
+中文版 `AGENTS.zh-CN.md` 作为参考提供。
+
+`.ai/` 目录存放项目长期知识模板。
+
+⸻
+
+## 快速开始
+
+克隆套件，然后安装到你的项目：
+
+```bash
+git clone https://github.com/xuulu/agents.git
+cd agents
+./install.sh /path/to/your-project
+```
+
+或者手动复制：
+
+```bash
+cp AGENTS.md AGENTS.zh-CN.md /path/to/your-project/
+cp -r .ai/ /path/to/your-project/
+```
+
+完成。`AGENTS.md` 是 Agent 读取的入口；`.ai/` 是 Agent 随时间沉淀筛选后项目记忆的地方。
+
+⸻
+
+## 如何安装？
+
+方式一：一键安装
+
+```bash
+./install.sh /path/to/your-project
+```
+
+脚本会把 `AGENTS.md`、`AGENTS.zh-CN.md` 和 `.ai/` 模板复制到目标仓库根目录，且不会覆盖已存在的文件。
+
+方式二：手动复制
+
+把：
+
+AGENTS.md
+.ai/
+
+放入项目根目录即可。
+
+如果需要中文参考：
+
+AGENTS.zh-CN.md
+
+也可以一起保留。
+
+推荐：
+
+your-project/
+├── AGENTS.md
+├── AGENTS.zh-CN.md
+└── .ai/
+
+其中：
+
+AGENTS.md
+
+作为 Agent 实际读取的标准入口。
+
+⸻
+
+## 第一次使用
+
+不要立即把所有 .ai/ 文件写满。
+
+先让 AI 调查项目。
+
+例如：
+
+请先阅读项目并初始化 .ai 项目记忆。
+只记录已经确认、未来可能影响开发、且源码中不明显的信息。
+不要猜测，不要记录临时问题。
+
+AI 应该逐渐形成：
+
+PROJECT.md
+ARCHITECTURE.md
+DECISIONS.md
+
+而不是一次性生成大量内容。
+
+TROUBLESHOOTING.md 可以等真正出现有长期价值的问题后再填写。
+
+⸻
+
+## 日常开发
+
+正常让 Agent 工作即可。
+
+例如：
+
+修复登录接口的问题。
+
+Agent 应该：
+
+读取相关项目规则
+↓
+检查相关代码
+↓
+检查依赖
+↓
+检查状态
+↓
+定位问题
+↓
+修改
+↓
+测试
+↓
+判断是否有长期知识
+
+你不需要每次手动告诉它这些步骤。
+
+⸻
+
+## 架构修改
+
+如果任务涉及：
+
+* 数据库
+* 全局状态
+* API
+* 核心模块
+* 服务边界
+* 认证
+* 缓存
+* 外部服务
+
+Agent 应该先检查：
+
+PROJECT.md
+ARCHITECTURE.md
+DECISIONS.md
+
+并在修改后根据实际结果更新相关记忆。
+
+⸻
+
+## Debug
+
+如果是 Bug：
+
+TROUBLESHOOTING.md
+
+只有在问题满足长期记忆条件时才更新。
+
+不要因为一次普通报错就产生记忆。
+
+⸻
+
+## 推荐项目结构
+
+使用本套件的项目推荐布局：
+
+```
 your-project/
 ├── AGENTS.md
 ├── AGENTS.zh-CN.md
@@ -200,6 +409,7 @@ your-project/
     ├── ARCHITECTURE.md
     ├── DECISIONS.md
     └── TROUBLESHOOTING.md
+```
 
 实际运行时：
 
@@ -220,7 +430,7 @@ src/api/AGENTS.md
 
 ⸻
 
-AGENTS.md 是干什么的？
+## AGENTS.md 是干什么的？
 
 AGENTS.md 是行为规则。
 
@@ -232,8 +442,10 @@ AGENTS.md 是行为规则。
 * 如何检查依赖
 * 如何检查状态
 * 如何控制修改范围
+* Git 与变更卫生
 * 如何 Debug
 * 如何验证
+* 性能意识
 * 什么信息应该记忆
 * 什么信息不能记忆
 
@@ -241,7 +453,7 @@ AGENTS.md 是行为规则。
 
 ⸻
 
-.ai/ 是干什么的？
+## .ai/ 是干什么的？
 
 .ai/ 是项目长期记忆。
 
@@ -299,7 +511,7 @@ TROUBLESHOOTING.md
 
 ⸻
 
-什么情况下应该写入记忆？
+## 什么情况下应该写入记忆？
 
 必须同时满足：
 
@@ -315,12 +527,12 @@ TROUBLESHOOTING.md
 
 例如：
 
-应该记录
+### 应该记录
 
 当前使用的某依赖版本不支持 API X。
 必须使用 API Y。
 
-不应该记录
+### 不应该记录
 
 今天 npm install 失败。
 
@@ -328,7 +540,7 @@ TROUBLESHOOTING.md
 
 ⸻
 
-不要把 .ai/ 变成垃圾桶
+## 不要把 .ai/ 变成垃圾桶
 
 禁止把以下内容全部塞进去：
 
@@ -354,126 +566,7 @@ TROUBLESHOOTING.md
 
 ⸻
 
-如何安装？
-
-把：
-
-AGENTS.md
-.ai/
-
-放入项目根目录即可。
-
-如果需要中文参考：
-
-AGENTS.zh-CN.md
-
-也可以一起保留。
-
-推荐：
-
-your-project/
-├── AGENTS.md
-├── AGENTS.zh-CN.md
-└── .ai/
-
-其中：
-
-AGENTS.md
-
-作为 Agent 实际读取的标准入口。
-
-⸻
-
-第一次使用
-
-不要立即把所有 .ai/ 文件写满。
-
-先让 AI 调查项目。
-
-例如：
-
-请先阅读项目并初始化 .ai 项目记忆。
-只记录已经确认、未来可能影响开发、且源码中不明显的信息。
-不要猜测，不要记录临时问题。
-
-AI 应该逐渐形成：
-
-PROJECT.md
-ARCHITECTURE.md
-DECISIONS.md
-
-而不是一次性生成大量内容。
-
-TROUBLESHOOTING.md 可以等真正出现有长期价值的问题后再填写。
-
-⸻
-
-日常开发
-
-正常让 Agent 工作即可。
-
-例如：
-
-修复登录接口的问题。
-
-Agent 应该：
-
-读取相关项目规则
-↓
-检查相关代码
-↓
-检查依赖
-↓
-检查状态
-↓
-定位问题
-↓
-修改
-↓
-测试
-↓
-判断是否有长期知识
-
-你不需要每次手动告诉它这些步骤。
-
-⸻
-
-架构修改
-
-如果任务涉及：
-
-* 数据库
-* 全局状态
-* API
-* 核心模块
-* 服务边界
-* 认证
-* 缓存
-* 外部服务
-
-Agent 应该先检查：
-
-PROJECT.md
-ARCHITECTURE.md
-DECISIONS.md
-
-并在修改后根据实际结果更新相关记忆。
-
-⸻
-
-Debug
-
-如果是 Bug：
-
-TROUBLESHOOTING.md
-
-只有在问题满足长期记忆条件时才更新。
-
-不要因为一次普通报错就产生记忆。
-
-⸻
-
-为什么不使用多个 AGENTS.md？
+## 为什么只保留一个 AGENTS.md？
 
 默认不使用：
 
@@ -497,7 +590,7 @@ api/AGENTS.md
 
 ⸻
 
-为什么记忆单独放 .ai/？
+## 为什么记忆单独放 .ai/？
 
 因为：
 
@@ -521,7 +614,7 @@ AI 应该怎么工作？
 
 ⸻
 
-与具体框架无关
+## 与具体框架无关
 
 不要把这套规则理解成：
 
@@ -552,7 +645,42 @@ Version: ...
 
 ⸻
 
-最终原则
+## 定制规则
+
+AGENTS.md 是模板，不是合同。
+
+* 保留对你有用的章节，删除其余部分。
+* 可以新增团队专属规则（命名、提交规范、评审要求）作为新章节。
+* AGENTS.md 一旦稳定就尽量少动；变化中的事实放进 .ai/，不要放进 AGENTS.md。
+* 删除某个章节时，记得同步删除目录中的对应条目。
+
+⸻
+
+## 常见问题
+
+问：哪些 Agent 支持这套规则？
+
+答：任何支持读取 AGENTS.md 或类似项目级指令文件的 Agent——包括 Claude Code、Cursor、Codex、Cline、Roo Code、Windsurf 等。
+
+问：.ai/ 和 Agent 自己的记忆一样吗？
+
+答：不一样。.ai/ 是经过筛选的项目专属知识，跨工具、跨会话长期有效；Agent 内部记忆是每个工具各自的，不共享。
+
+问：之后可以增加目录级 AGENTS.md 吗？
+
+答：可以，但只在有明确、文档化的需求时。默认保持根目录一个 AGENTS.md。
+
+问：AGENTS.md 和工具自带规则冲突怎么办？
+
+答：保持两者一致。AGENTS.md 管项目行为，工具设置管工具行为。
+
+问：必须同时维护两种语言吗？
+
+答：不必。AGENTS.md 是标准入口，AGENTS.zh-CN.md 可选。
+
+⸻
+
+## 最终原则
 
 这套系统最重要的原则只有几个：
 
@@ -570,3 +698,20 @@ Version: ...
 而是一个：
 
 越来越了解这个项目，但不会被垃圾记忆污染的 AI Coding Agent。
+
+⸻
+
+## 参与贡献
+
+这是一个文档项目——欢迎提交 issue 和 PR。
+
+* 修改规则时保持 AGENTS.md 与 AGENTS.zh-CN.md 同步。
+* 保持 README.md 与 README.zh-CN.md 同步。
+* 保持简洁、要点式的行文风格。
+* 说明改动解决的问题；不要添加只是复述常识的规则。
+
+⸻
+
+## 许可证
+
+[MIT](LICENSE)
