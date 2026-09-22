@@ -348,7 +348,7 @@ AGENTS.md 是模板，不是合同。
 
 **问：哪些 Agent 支持这套规则？**
 
-答：任何支持读取 AGENTS.md 或类似项目级指令文件的 Agent——Claude Code、Cursor、Codex、Cline、Roo Code、Windsurf 等。
+答：任何支持 AGENTS.md 或类似项目级指令文件的 Coding Agent 都可以使用。Claude Code、Cursor、Codex、Cline、Roo Code、Windsurf 是目前的一些例子——请当作举例，不要当成兼容性承诺。
 
 **问：选哪个语言目录？**
 
@@ -389,7 +389,10 @@ AGENTS.md 是模板，不是合同。
 
 这是一个文档项目——欢迎提 issue 和 PR。
 
-* 修改规则或模板时，保持 `en/` 与 `zh-CN/` 两个目录同步。
+* 修改规则或模板时，保持 `en/` 与 `zh-CN/` 两个目录同步：
+  * 同步修改另一语言版本。
+  * 保持结构和规则含义一致。
+  * 语言表达可以不同，但行为要求不能产生实质差异。
 * 保持 README.md 与 README.zh-CN.md 同步。
 * 保持简洁、要点式的行文风格。
 * 说明改动解决的问题；只复述常识的规则就别加了。

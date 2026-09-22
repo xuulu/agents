@@ -350,7 +350,7 @@ AGENTS.md is a template, not a contract.
 
 **Q: Which agents support this?**
 
-A: Anything that reads AGENTS.md or similar project-level instruction files — Claude Code, Cursor, Codex, Cline, Roo Code, Windsurf, and others.
+A: Any coding agent that supports AGENTS.md or equivalent project-level instruction files. Claude Code, Cursor, Codex, Cline, Roo Code, and Windsurf are some current examples — treat the list as examples, not a compatibility promise.
 
 **Q: Which language folder should I pick?**
 
@@ -400,7 +400,10 @@ The goal isn't an AI that remembers everything. It's an AI that understands the 
 
 This is a documentation project — issues and pull requests are welcome.
 
-* Keep the `en/` and `zh-CN/` folders in sync when changing rules or templates.
+* Keep the `en/` and `zh-CN/` folders in sync when changing rules or templates:
+  * Update the corresponding file in the other language.
+  * Keep structure and rule meaning equivalent.
+  * Language-specific wording may differ, but behavior must remain equivalent.
 * Keep README.md and README.zh-CN.md in sync.
 * Keep the concise, bullet-style format.
 * Explain the problem a change solves; skip rules that just restate common sense.

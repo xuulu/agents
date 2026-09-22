@@ -250,6 +250,7 @@ Commit behavior:
 * Keep one commit focused on one change; do not mix unrelated edits into the same commit.
 * Do not rewrite or force-push shared git history unless the project explicitly allows it.
 * Follow the repository's branch, review, and CI workflow; do not bypass required checks.
+* Do not commit, push, create branches, merge, or rewrite history unless the user explicitly asks for the Git operation or the project workflow explicitly requires it.
 
 ⸻
 
@@ -276,6 +277,8 @@ Do not fix errors by:
 * Changing dependencies without evidence.
 
 If several attempts fail, stop speculative editing.
+
+Do not repeatedly modify the same area without new evidence. After repeated failed attempts, stop changing code and investigate the missing evidence.
 
 Record:
 
@@ -463,6 +466,18 @@ Only persist a correction when it is:
 
 Project memory is stored in .ai/.
 
+### When to read project memory
+
+Read `.ai/PROJECT.md` when the task depends on the project stack, runtime, versions, commands, deployment, or long-term constraints.
+
+Read `.ai/ARCHITECTURE.md` when the task changes shared state, module boundaries, data flow, lifecycle, persistence, or external service integration.
+
+Read `.ai/DECISIONS.md` when the task changes an established architecture, dependency, API, data model, or other important design decision.
+
+Read `.ai/TROUBLESHOOTING.md` when debugging a problem or changing behavior related to a known issue.
+
+Do not read every `.ai/` file for every task. Read only the memory relevant to the current task.
+
 Recommended structure:
 
 .ai/
@@ -577,6 +592,14 @@ Update an existing entry instead of creating a duplicate.
 If memory conflicts with current reality, trust the current evidence and update the stale memory.
 
 Memory is a curated knowledge base, not a diary.
+
+Project memory is advisory, not authoritative. Current source, configuration, dependency metadata, and actual runtime behavior always take precedence over `.ai/`.
+
+If `.ai/` conflicts with the current project:
+
+1. Follow the current project.
+2. Treat the memory as stale.
+3. Update the stale memory if the new state is confirmed.
 
 ⸻
 

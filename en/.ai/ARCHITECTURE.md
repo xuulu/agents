@@ -1,5 +1,7 @@
 # ARCHITECTURE.md — Non-obvious architectural knowledge
 
+> **Read this file when:** the task changes shared state, module boundaries, data flow, lifecycle, persistence, or external service integration.
+>
 > Record only knowledge that is NOT obvious from the source code.
 > Do not document every file, module, or class.
 > If the code already expresses it, do not duplicate it here.
@@ -31,3 +33,13 @@
 ## Important system constraints
 
 <!-- Compatibility promises, performance ceilings, invariants that must be preserved. -->
+
+## Example entry
+
+This is a model for how concise a good entry should be — delete it once your own entries exist.
+
+### Authentication ownership
+
+Authentication state is owned by the API session layer. UI components must not directly mutate authentication state.
+
+Reason: multiple clients depend on the same session lifecycle.
