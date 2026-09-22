@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #
-# AI Agent Project Kit — installer
+# AI Agent Project Kit — installer (English version)
 #
 # Usage:
 #   ./install.sh [target-directory]
 #
-# Copies AGENTS.md, AGENTS.zh-CN.md and the .ai/ memory templates into the
+# Copies AGENTS.md and the .ai/ memory templates from THIS folder into the
 # root of a target repository (default: current directory).
 #
 # The installer never overwrites existing files: if a destination file
@@ -21,17 +21,15 @@ if [[ ! -d "$TARGET_DIR" ]]; then
   exit 1
 fi
 
-# --- AGENTS files -----------------------------------------------------------
-for f in AGENTS.md AGENTS.zh-CN.md; do
-  if [[ -e "$TARGET_DIR/$f" ]]; then
-    echo "Skip:  $TARGET_DIR/$f already exists (left untouched)"
-  else
-    cp "$SCRIPT_DIR/$f" "$TARGET_DIR/$f"
-    echo "Installed: $TARGET_DIR/$f"
-  fi
-done
+# --- AGENTS.md ---------------------------------------------------------------
+if [[ -e "$TARGET_DIR/AGENTS.md" ]]; then
+  echo "Skip:  $TARGET_DIR/AGENTS.md already exists (left untouched)"
+else
+  cp "$SCRIPT_DIR/AGENTS.md" "$TARGET_DIR/AGENTS.md"
+  echo "Installed: $TARGET_DIR/AGENTS.md"
+fi
 
-# --- .ai/ memory templates --------------------------------------------------
+# --- .ai/ memory templates ---------------------------------------------------
 if [[ -d "$TARGET_DIR/.ai" ]]; then
   echo "Note:  $TARGET_DIR/.ai already exists; copying only missing templates"
 else

@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+> **语言切换：** [English](README.md) | [简体中文](README.zh-CN.md)
+
 通用 AI Coding Agent 项目规范与持久化项目记忆系统。
 
 ## 目录
@@ -10,9 +12,8 @@
 - [为什么需要它？](#为什么需要它)
 - [什么时候适合使用？](#什么时候适合使用)
 - [什么时候不需要？](#什么时候不需要)
-- [仓库结构](#仓库结构)
+- [选择语言版本](#选择语言版本)
 - [快速开始](#快速开始)
-- [如何安装？](#如何安装)
 - [第一次使用](#第一次使用)
 - [日常开发](#日常开发)
 - [架构修改](#架构修改)
@@ -219,89 +220,73 @@ API 不存在
 
 ⸻
 
-## 仓库结构
+## 选择语言版本
+
+套件按两种语言各提供一个自包含目录，结构完全一致，只有语言不同：
+
+| 目录 | 语言 | 内容 |
+| --- | --- | --- |
+| [en/](en/) | English | `AGENTS.md` rules + `.ai/` memory templates + `install.sh` |
+| [zh-CN/](zh-CN/) | 简体中文 | `AGENTS.md` 规则 + `.ai/` 记忆模板 + `install.sh` |
+
+每个目录都是完整的，选择一个团队阅读的语言即可，下载或克隆后直接安装到你的项目，不需要两份都装。
+
+仓库结构：
 
 ```
 agents/
-├── AGENTS.md            # Agent 行为规则（英文，标准入口）
-├── AGENTS.zh-CN.md      # 同一套规则的中文版（参考）
-├── README.md            # 本指南（英文）
-├── README.zh-CN.md      # 本指南（中文）
-├── install.sh           # 一键安装脚本
-├── .ai/                 # 项目记忆模板
-│   ├── PROJECT.md
-│   ├── ARCHITECTURE.md
-│   ├── DECISIONS.md
-│   └── TROUBLESHOOTING.md
-└── LICENSE              # MIT
+├── README.md            # English guide（默认）
+├── README.zh-CN.md      # 简体中文指南
+├── LICENSE              # MIT
+├── en/                  # English kit
+│   ├── AGENTS.md        # Agent 规则（入口）
+│   ├── install.sh       # 一键安装脚本
+│   └── .ai/             # 记忆模板
+│       ├── PROJECT.md
+│       ├── ARCHITECTURE.md
+│       ├── DECISIONS.md
+│       └── TROUBLESHOOTING.md
+└── zh-CN/               # 中文套件
+    ├── AGENTS.md        # Agent 规则（入口）
+    ├── install.sh       # 一键安装脚本
+    └── .ai/             # 记忆模板
+        ├── PROJECT.md
+        ├── ARCHITECTURE.md
+        ├── DECISIONS.md
+        └── TROUBLESHOOTING.md
 ```
-
-Agent 实际读取的入口是 `AGENTS.md`。
-
-中文版 `AGENTS.zh-CN.md` 作为参考提供。
-
-`.ai/` 目录存放项目长期知识模板。
 
 ⸻
 
 ## 快速开始
 
-克隆套件，然后安装到你的项目：
+先选择语言目录（`en/` 或 `zh-CN/`），然后任选下面三种方式之一。
+
+**方式一：一键导入**
+
+克隆仓库，进入你选择的语言目录，运行安装脚本：
 
 ```bash
 git clone https://github.com/xuulu/agents.git
-cd agents
+cd agents/zh-CN            # 或：cd agents/en
 ./install.sh /path/to/your-project
 ```
 
-或者手动复制：
+脚本会把 `AGENTS.md` 和 `.ai/` 模板复制到目标项目根目录，且不会覆盖已存在的文件。
+
+**方式二：手动复制**
 
 ```bash
-cp AGENTS.md AGENTS.zh-CN.md /path/to/your-project/
+cd agents/zh-CN            # 或：cd agents/en
+cp AGENTS.md /path/to/your-project/
 cp -r .ai/ /path/to/your-project/
 ```
 
-完成。`AGENTS.md` 是 Agent 读取的入口；`.ai/` 是 Agent 随时间沉淀筛选后项目记忆的地方。
+**方式三：下载解压使用**
 
-⸻
+在 GitHub 页面点击 **Code → Download ZIP** 下载压缩包，解压后打开 `en/` 或 `zh-CN/` 目录，运行 `./install.sh`，或者手动把 `AGENTS.md` 和 `.ai/` 复制到你的项目中。
 
-## 如何安装？
-
-方式一：一键安装
-
-```bash
-./install.sh /path/to/your-project
-```
-
-脚本会把 `AGENTS.md`、`AGENTS.zh-CN.md` 和 `.ai/` 模板复制到目标仓库根目录，且不会覆盖已存在的文件。
-
-方式二：手动复制
-
-把：
-
-AGENTS.md
-.ai/
-
-放入项目根目录即可。
-
-如果需要中文参考：
-
-AGENTS.zh-CN.md
-
-也可以一起保留。
-
-推荐：
-
-your-project/
-├── AGENTS.md
-├── AGENTS.zh-CN.md
-└── .ai/
-
-其中：
-
-AGENTS.md
-
-作为 Agent 实际读取的标准入口。
+完成。`AGENTS.md` 是 Agent 读取的规则入口；`.ai/` 是 Agent 随时间沉淀筛选后项目记忆的地方。
 
 ⸻
 
@@ -396,14 +381,11 @@ TROUBLESHOOTING.md
 
 ## 推荐项目结构
 
-使用本套件的项目推荐布局：
+安装完成后，目标项目应如下：
 
 ```
 your-project/
 ├── AGENTS.md
-├── AGENTS.zh-CN.md
-├── README.md
-├── README.zh-CN.md
 └── .ai/
     ├── PROJECT.md
     ├── ARCHITECTURE.md
@@ -411,14 +393,7 @@ your-project/
     └── TROUBLESHOOTING.md
 ```
 
-实际运行时：
-
-AGENTS.md
-    ↓
-AI 工作规则
-.ai/
-    ↓
-项目长期知识
+Agent 实际读取的入口是 `AGENTS.md`。
 
 不要创建：
 
@@ -450,6 +425,8 @@ AGENTS.md 是行为规则。
 * 什么信息不能记忆
 
 它应该相对稳定。
+
+选择适合团队语言版本的目录：`en/` 是英文版，`zh-CN/` 是简体中文版。
 
 ⸻
 
@@ -662,6 +639,10 @@ AGENTS.md 是模板，不是合同。
 
 答：任何支持读取 AGENTS.md 或类似项目级指令文件的 Agent——包括 Claude Code、Cursor、Codex、Cline、Roo Code、Windsurf 等。
 
+问：应该选择哪个语言目录？
+
+答：选择团队阅读的语言——`en/` 英文版或 `zh-CN/` 简体中文版。两个目录结构完全一致，只有语言不同。安装其中一个即可，不需要两个都装。
+
 问：.ai/ 和 Agent 自己的记忆一样吗？
 
 答：不一样。.ai/ 是经过筛选的项目专属知识，跨工具、跨会话长期有效；Agent 内部记忆是每个工具各自的，不共享。
@@ -673,10 +654,6 @@ AGENTS.md 是模板，不是合同。
 问：AGENTS.md 和工具自带规则冲突怎么办？
 
 答：保持两者一致。AGENTS.md 管项目行为，工具设置管工具行为。
-
-问：必须同时维护两种语言吗？
-
-答：不必。AGENTS.md 是标准入口，AGENTS.zh-CN.md 可选。
 
 ⸻
 
@@ -705,7 +682,7 @@ AGENTS.md 是模板，不是合同。
 
 这是一个文档项目——欢迎提交 issue 和 PR。
 
-* 修改规则时保持 AGENTS.md 与 AGENTS.zh-CN.md 同步。
+* 修改规则或模板时，保持 `en/` 与 `zh-CN/` 两个目录同步。
 * 保持 README.md 与 README.zh-CN.md 同步。
 * 保持简洁、要点式的行文风格。
 * 说明改动解决的问题；不要添加只是复述常识的规则。

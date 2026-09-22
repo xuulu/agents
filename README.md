@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+> **Language:** [English](README.md) | [简体中文](README.zh-CN.md)
+
 A general-purpose project instruction and persistent-memory system for AI coding agents.
 
 ## Table of Contents
@@ -10,9 +12,8 @@ A general-purpose project instruction and persistent-memory system for AI coding
 - [Why use it?](#why-use-it)
 - [When should you use it?](#when-should-you-use-it)
 - [When should you NOT use it?](#when-should-you-not-use-it)
-- [Repository layout](#repository-layout)
+- [Choose your language](#choose-your-language)
 - [Quick start](#quick-start)
-- [Installation](#installation)
 - [Initial setup](#initial-setup)
 - [Daily usage](#daily-usage)
 - [Architecture changes](#architecture-changes)
@@ -215,83 +216,73 @@ You can simply use the coding agent directly.
 
 ⸻
 
-## Repository layout
+## Choose your language
+
+The kit ships as two self-contained folders. They are identical in structure and differ only in language:
+
+| Folder | Language | Contents |
+| --- | --- | --- |
+| [en/](en/) | English | `AGENTS.md` rules + `.ai/` memory templates + `install.sh` |
+| [zh-CN/](zh-CN/) | 简体中文 | `AGENTS.md` 规则 + `.ai/` 记忆模板 + `install.sh` |
+
+Each folder is complete on its own — pick the one your team reads, download or clone it, and install it into your project. You do not need both.
+
+Repository layout:
 
 ```
 agents/
-├── AGENTS.md            # Agent behavior rules (English, the entry point)
-├── AGENTS.zh-CN.md      # Same rules in Chinese (reference)
-├── README.md            # This guide (English)
-├── README.zh-CN.md      # This guide (Chinese)
-├── install.sh           # One-command installer
-├── .ai/                 # Persistent project memory templates
-│   ├── PROJECT.md
-│   ├── ARCHITECTURE.md
-│   ├── DECISIONS.md
-│   └── TROUBLESHOOTING.md
-└── LICENSE              # MIT
+├── README.md            # English guide (default)
+├── README.zh-CN.md      # 简体中文指南
+├── LICENSE              # MIT
+├── en/                  # English kit
+│   ├── AGENTS.md        # Agent rules (entry point)
+│   ├── install.sh       # One-command installer
+│   └── .ai/             # Memory templates
+│       ├── PROJECT.md
+│       ├── ARCHITECTURE.md
+│       ├── DECISIONS.md
+│       └── TROUBLESHOOTING.md
+└── zh-CN/               # 中文套件
+    ├── AGENTS.md        # Agent 规则（入口）
+    ├── install.sh       # 一键安装脚本
+    └── .ai/             # 记忆模板
+        ├── PROJECT.md
+        ├── ARCHITECTURE.md
+        ├── DECISIONS.md
+        └── TROUBLESHOOTING.md
 ```
-
-The actual agent entry point is `AGENTS.md`.
-
-The Chinese version is provided as a reference: `AGENTS.zh-CN.md`.
-
-The `.ai/` directory contains persistent project knowledge templates.
 
 ⸻
 
 ## Quick start
 
-Clone the kit and install it into your project:
+Pick a language folder first (`en/` or `zh-CN/`), then use any of the three options below.
+
+**Option 1 — one-command import**
+
+Clone the repository and run the installer from the language folder you chose:
 
 ```bash
 git clone https://github.com/xuulu/agents.git
-cd agents
+cd agents/zh-CN            # or: cd agents/en
 ./install.sh /path/to/your-project
 ```
 
-Or copy the files manually:
+The installer copies `AGENTS.md` and the `.ai/` templates into the target repository root. It never overwrites files that already exist.
+
+**Option 2 — manual copy**
 
 ```bash
-cp AGENTS.md AGENTS.zh-CN.md /path/to/your-project/
+cd agents/zh-CN            # or: cd agents/en
+cp AGENTS.md /path/to/your-project/
 cp -r .ai/ /path/to/your-project/
 ```
 
+**Option 3 — download & unzip**
+
+On GitHub, click **Code → Download ZIP**, unzip the archive, open the `en/` or `zh-CN/` folder, then run `./install.sh` or copy `AGENTS.md` and `.ai/` into your project manually.
+
 That is it. `AGENTS.md` is the entry point the agent reads; `.ai/` is where the agent accumulates curated project memory over time.
-
-⸻
-
-## Installation
-
-Option 1 — one command:
-
-```bash
-./install.sh /path/to/your-project
-```
-
-The installer copies `AGENTS.md`, `AGENTS.zh-CN.md`, and the `.ai/` templates into the target repository root. It never overwrites files that already exist.
-
-Option 2 — copy manually:
-
-Copy:
-
-AGENTS.md
-.ai/
-
-into the root of the target repository.
-
-You may also keep:
-
-AGENTS.zh-CN.md
-
-as a Chinese reference.
-
-Recommended:
-
-your-project/
-├── AGENTS.md
-├── AGENTS.zh-CN.md
-└── .ai/
 
 ⸻
 
@@ -391,14 +382,11 @@ Only store a problem when:
 
 ## Recommended structure
 
-The recommended layout for a project using this kit:
+After installation, the target project should look like this:
 
 ```
 your-project/
 ├── AGENTS.md
-├── AGENTS.zh-CN.md
-├── README.md
-├── README.zh-CN.md
 └── .ai/
     ├── PROJECT.md
     ├── ARCHITECTURE.md
@@ -406,15 +394,15 @@ your-project/
     └── TROUBLESHOOTING.md
 ```
 
-The actual agent entry point is:
+The actual agent entry point is `AGENTS.md`.
 
-AGENTS.md
+Do not create:
 
-The Chinese version is provided as a reference:
+src/AGENTS.md
+components/AGENTS.md
+api/AGENTS.md
 
-AGENTS.zh-CN.md
-
-The .ai/ directory contains persistent project knowledge.
+Default to one root `AGENTS.md`.
 
 ⸻
 
@@ -441,6 +429,8 @@ It covers:
 * Communication
 
 The file should remain relatively stable.
+
+Pick the language folder that fits your team: `en/` for English, `zh-CN/` for 简体中文.
 
 ⸻
 
@@ -652,6 +642,10 @@ Q: Which agents support this?
 
 A: Any agent that reads AGENTS.md or similar project-level instruction files — Claude Code, Cursor, Codex, Cline, Roo Code, Windsurf, and others.
 
+Q: Which language folder should I pick?
+
+A: Pick the folder your team reads — `en/` for English or `zh-CN/` for 简体中文. The two folders are identical in structure and differ only in language. Install one of them; installing both is unnecessary.
+
 Q: Is .ai/ the same as the agent's own memory?
 
 A: No. .ai/ is curated, project-specific knowledge that survives across tools and sessions. Agent-internal memory is per-tool and not shared.
@@ -663,10 +657,6 @@ A: Yes, but only when there is a specific, documented need. One root AGENTS.md i
 Q: What if AGENTS.md conflicts with my tool's own rules?
 
 A: Keep them consistent. AGENTS.md governs project behavior; tool settings govern tool behavior.
-
-Q: Do I have to maintain both languages?
-
-A: No. AGENTS.md is the standard entry point. AGENTS.zh-CN.md is optional.
 
 ⸻
 
@@ -704,7 +694,7 @@ understands the project better over time without becoming polluted by low-value 
 
 This is a documentation project — issues and pull requests are welcome.
 
-* Keep AGENTS.md and AGENTS.zh-CN.md in sync when changing rules.
+* Keep the `en/` and `zh-CN/` folders in sync when changing rules or templates.
 * Keep README.md and README.zh-CN.md in sync.
 * Preserve the concise, bullet-style format.
 * Explain the problem a change solves; avoid adding rules that merely restate common sense.
