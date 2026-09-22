@@ -34,6 +34,7 @@
 
 <!-- Compatibility promises, performance ceilings, invariants that must be preserved. -->
 
+<!--
 ## Example entry
 
 This is a model for how concise a good entry should be — delete it once your own entries exist.
@@ -43,3 +44,4 @@ This is a model for how concise a good entry should be — delete it once your o
 Authentication state is owned by the API session layer. UI components must not directly mutate authentication state.
 
 Reason: multiple clients depend on the same session lifecycle.
+-->

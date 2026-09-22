@@ -1,8 +1,8 @@
 # AI Agent Project Kit
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+> **Rules + curated project memory.** Keep an AI coding agent working reliably in an existing codebase for months — no framework lock-in, one language folder is enough.
 
-> **Language:** [English](README.md) | [简体中文](README.zh-CN.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) · [简体中文](README.zh-CN.md)
 
 Your AI coding agent is the most enthusiastic intern you've ever hired — and the most dangerous one. It starts typing before it understands the task, invents APIs out of thin air, ignores the dependency versions sitting right in front of it, and treats every error message like a diary entry worth cherishing forever.
 
@@ -10,16 +10,24 @@ This repo is that intern's first-day onboarding. Understand first. Never guess. 
 
 ## Table of Contents
 
+**Intro**
+
 - [What is this?](#what-is-this)
 - [Why use it?](#why-use-it)
 - [When should you use it?](#when-should-you-use-it)
 - [When should you NOT use it?](#when-should-you-not-use-it)
+
+**Get started**
+
 - [Choose your language](#choose-your-language)
 - [Quick start](#quick-start)
 - [Initial setup](#initial-setup)
 - [Daily usage](#daily-usage)
 - [Architecture changes](#architecture-changes)
 - [Debugging](#debugging)
+
+**Concepts**
+
 - [Recommended structure](#recommended-structure)
 - [What is AGENTS.md?](#what-is-agentsmd)
 - [What is .ai/?](#what-is-ai)
@@ -27,6 +35,9 @@ This repo is that intern's first-day onboarding. Understand first. Never guess. 
 - [Don't turn .ai/ into a trash bin](#dont-turn-ai-into-a-trash-bin)
 - [Why only one AGENTS.md?](#why-only-one-agentsmd)
 - [Why separate memory from AGENTS.md?](#why-separate-memory-from-agentsmd)
+
+**Details**
+
 - [Framework agnostic](#framework-agnostic)
 - [Customizing the rules](#customizing-the-rules)
 - [FAQ](#faq)
@@ -301,7 +312,7 @@ This earns its place because it's confirmed, version-specific, likely to recur, 
 
 Don't shovel every error, every failed test, every attempt, chat history, temporary environment issues, or things that are already obvious in the source into .ai/.
 
-The right target: 100 sessions of development → a handful of genuinely important things saved. Not 100 sessions → thousands of log lines.
+The right target: **100 sessions of development → a handful of genuinely important things saved.** Not 100 sessions → thousands of log lines.
 
 ⸻
 
