@@ -4,7 +4,9 @@
 
 > **Language:** [English](README.md) | [简体中文](README.zh-CN.md)
 
-A general-purpose project instruction and persistent-memory system for AI coding agents.
+Your AI coding agent is the most enthusiastic intern you've ever hired — and the most dangerous one. It starts typing before it understands the task, invents APIs out of thin air, ignores the dependency versions sitting right in front of it, and treats every error message like a diary entry worth cherishing forever.
+
+This repo is that intern's first-day onboarding. Understand first. Never guess. Check versions. Make the smallest change. Verify. Remember only what actually matters. Same AI, but now it works like a colleague instead of a tornado with a keyboard.
 
 ## Table of Contents
 
@@ -22,6 +24,7 @@ A general-purpose project instruction and persistent-memory system for AI coding
 - [What is AGENTS.md?](#what-is-agentsmd)
 - [What is .ai/?](#what-is-ai)
 - [Memory quality control](#memory-quality-control)
+- [Don't turn .ai/ into a trash bin](#dont-turn-ai-into-a-trash-bin)
 - [Why only one AGENTS.md?](#why-only-one-agentsmd)
 - [Why separate memory from AGENTS.md?](#why-separate-memory-from-agentsmd)
 - [Framework agnostic](#framework-agnostic)
@@ -35,13 +38,11 @@ A general-purpose project instruction and persistent-memory system for AI coding
 
 ## What is this?
 
-This project provides a framework-agnostic instruction system for AI coding agents working inside existing repositories.
+A framework-agnostic instruction system for AI coding agents working inside existing repositories.
 
-Its purpose is not to make AI write more code.
+The point isn't to make AI write more code. It's to make AI work in a codebase that already exists — without guessing, breaking things, or turning your project history into noise.
 
-Its purpose is to make AI work more reliably, safely, and consistently inside an existing codebase.
-
-The workflow is:
+The workflow:
 
 Understand the request
         ↓
@@ -59,160 +60,47 @@ Verify
         ↓
 Preserve only high-value knowledge
 
-It is not tied to any particular technology stack.
-
-It can be used with:
-
-* Frontend
-* Backend
-* Full Stack
-* APIs
-* CLI
-* Web
-* Desktop
-* Mobile
-* Rust
-* Go
-* Python
-* Java
-* Node.js
-* React
-* Vue
-* Next.js
-* Monorepos
+No stack is tied to it. It works for frontend, backend, full stack, APIs, CLI, web, desktop, mobile, Rust, Go, Python, Java, Node.js, React, Vue, Next.js, monorepos.
 
 ⸻
 
 ## Why use it?
 
-The biggest problems with AI coding agents are often not their ability to write code.
+AI coding agents usually fail not because they can't write code, but because they:
 
-The bigger problems are:
+* Start typing before understanding the request
+* Guess APIs from memory
+* Ignore installed dependency versions
+* Skip existing implementations
+* Miss global state and data flow
+* Change shared behavior without checking consumers
+* Refactor big for small tasks
+* Throw random fixes at bugs
+* Hide errors instead of fixing their causes
+* Record every error as permanent "memory"
+* Let project knowledge rot into noise
 
-* Starting implementation before understanding the request
-* Guessing APIs from memory
-* Ignoring installed dependency versions
-* Ignoring existing implementations
-* Missing global state and data flow
-* Changing shared behavior without checking consumers
-* Performing large refactors for small requests
-* Repeatedly making speculative fixes during debugging
-* Hiding errors instead of fixing their causes
-* Recording every error as permanent memory
-* Accumulating noisy project knowledge over time
-
-This project is designed to solve a different problem:
-
-How can an AI coding agent work reliably inside the same project over a long period of time?
+This kit exists for one question: how do you make an AI agent work reliably in the same project for months?
 
 ⸻
 
 ## When should you use it?
 
-1. Long-lived projects
+1. **Long-lived projects** — the project already exists, keeps being developed, and AI agents will touch it repeatedly: production web apps, APIs, SaaS, backend services, frontend apps, open-source projects, long-term personal projects.
 
-Recommended when:
+2. **Frequent agent usage** — if you use Claude Code, Cursor, Codex, Cline, Roo Code, Windsurf, or anything else that reads AGENTS.md. Define the rules once instead of re-explaining them in every chat.
 
-The project already exists
-+
-The project will continue to be developed
-+
-AI agents will be used repeatedly
+3. **Complex architecture** — multiple services, multiple data sources, shared state, caches, databases, external APIs, permission systems, complex lifecycles. "Understand before changing" matters most here.
 
-Examples:
+4. **Version-sensitive projects** — AI remembers a newer API, the project runs an older version, and the generated code breaks. The rules force the agent to check the actual version before trusting an API.
 
-* Production web applications
-* APIs
-* SaaS projects
-* Backend services
-* Frontend applications
-* Open-source projects
-* Long-term personal projects
-
-⸻
-
-2. Frequent AI coding-agent usage
-
-It is useful when using tools such as:
-
-* Claude Code
-* Cursor
-* Codex
-* Cline
-* Roo Code
-* Windsurf
-* Other agents that support project-level instructions
-
-Instead of repeatedly explaining the same rules in chat, the project can define them once.
-
-⸻
-
-3. Projects with complex architecture
-
-Useful when the project contains:
-
-* Multiple services
-* Multiple data sources
-* Shared state
-* Caches
-* Databases
-* External APIs
-* Permission systems
-* Complex lifecycles
-* Significant compatibility constraints
-
-⸻
-
-4. Version-sensitive projects
-
-This system is particularly useful when the project depends heavily on exact dependency versions.
-
-For example:
-
-AI remembers a newer API
-        ↓
-Project uses an older version
-        ↓
-Generated code does not work
-
-The rules require the agent to check the actual version before relying on an API.
-
-⸻
-
-5. Projects with recurring technical knowledge
-
-Some projects have constraints that are not obvious from the source code.
-
-For example:
-
-The current dependency version does not support API X.
-Use API Y instead.
-
-or:
-
-Only module A owns this state.
-
-or:
-
-This API must remain compatible with existing clients.
-
-These are good candidates for persistent project memory.
+5. **Recurring project knowledge** — constraints that aren't visible in the source: "this dependency doesn't support API X, use Y", "only module A owns this state", "this API must stay compatible with existing clients". Those belong in .ai/.
 
 ⸻
 
 ## When should you NOT use it?
 
-For a tiny, one-off project, it may be unnecessary.
-
-Examples:
-
-* Temporary scripts
-* Small experiments
-* Throwaway prototypes
-* Very small demos
-* One-time code generation
-
-You can simply use the coding agent directly.
+For tiny, one-off stuff — temporary scripts, small experiments, throwaway prototypes, one-time code generation — skip it and just use the agent directly.
 
 ⸻
 
@@ -220,12 +108,12 @@ You can simply use the coding agent directly.
 
 The kit ships as two self-contained folders. They are identical in structure and differ only in language:
 
-| Folder | Language | Contents |
+| Folder | Language | What's inside |
 | --- | --- | --- |
-| [en/](en/) | English | `AGENTS.md` rules + `.ai/` memory templates + `install.sh` |
-| [zh-CN/](zh-CN/) | 简体中文 | `AGENTS.md` 规则 + `.ai/` 记忆模板 + `install.sh` |
+| [en/](en/) | English | `AGENTS.md` rules + `.ai/` memory templates |
+| [zh-CN/](zh-CN/) | 简体中文 | `AGENTS.md` 规则 + `.ai/` 记忆模板 |
 
-Each folder is complete on its own — pick the one your team reads, download or clone it, and install it into your project. You do not need both.
+Pick the one your team reads. You only need one.
 
 Repository layout:
 
@@ -236,7 +124,6 @@ agents/
 ├── LICENSE              # MIT
 ├── en/                  # English kit
 │   ├── AGENTS.md        # Agent rules (entry point)
-│   ├── install.sh       # One-command installer
 │   └── .ai/             # Memory templates
 │       ├── PROJECT.md
 │       ├── ARCHITECTURE.md
@@ -244,7 +131,6 @@ agents/
 │       └── TROUBLESHOOTING.md
 └── zh-CN/               # 中文套件
     ├── AGENTS.md        # Agent 规则（入口）
-    ├── install.sh       # 一键安装脚本
     └── .ai/             # 记忆模板
         ├── PROJECT.md
         ├── ARCHITECTURE.md
@@ -256,51 +142,36 @@ agents/
 
 ## Quick start
 
-Pick a language folder first (`en/` or `zh-CN/`), then use any of the three options below.
+Pick a language folder (`en/` or `zh-CN/`), then use either method.
 
-**Option 1 — one-command import**
+**Method 1 — download the ZIP**
 
-Clone the repository and run the installer from the language folder you chose:
+On GitHub, click **Code → Download ZIP**, unzip the archive, open the `en/` or `zh-CN/` folder, and copy `AGENTS.md` and the `.ai/` folder into your project root.
+
+**Method 2 — clone and copy**
 
 ```bash
 git clone https://github.com/xuulu/agents.git
-cd agents/zh-CN            # or: cd agents/en
-./install.sh /path/to/your-project
-```
-
-The installer copies `AGENTS.md` and the `.ai/` templates into the target repository root. It never overwrites files that already exist.
-
-**Option 2 — manual copy**
-
-```bash
 cd agents/zh-CN            # or: cd agents/en
 cp AGENTS.md /path/to/your-project/
 cp -r .ai/ /path/to/your-project/
 ```
 
-**Option 3 — download & unzip**
-
-On GitHub, click **Code → Download ZIP**, unzip the archive, open the `en/` or `zh-CN/` folder, then run `./install.sh` or copy `AGENTS.md` and `.ai/` into your project manually.
-
-That is it. `AGENTS.md` is the entry point the agent reads; `.ai/` is where the agent accumulates curated project memory over time.
+Done. `AGENTS.md` is the entry point the agent reads; `.ai/` is where the agent keeps curated project memory over time.
 
 ⸻
 
 ## Initial setup
 
-Do not try to fill every memory file on the first day.
-
-Start with the repository itself.
-
-The agent can inspect the project and gradually populate:
+Don't try to fill every memory file on day one. Start from the repository itself and let the agent populate things gradually:
 
 PROJECT.md
 ARCHITECTURE.md
 DECISIONS.md
 
-TROUBLESHOOTING.md can remain nearly empty until a confirmed recurring issue appears.
+TROUBLESHOOTING.md can stay nearly empty until a confirmed recurring issue shows up.
 
-A useful initialization request is:
+A good kick-off request:
 
 Inspect this repository and initialize the .ai project memory.
 Only record confirmed information that is likely to affect future development and is not obvious from the source.
@@ -312,9 +183,7 @@ Do not create unnecessary documentation.
 
 ## Daily usage
 
-Normal development does not require special commands.
-
-For example:
+Normal development needs no special commands. For example:
 
 Fix the authentication API issue.
 
@@ -334,26 +203,13 @@ Make the smallest change
         ↓
 Run verification
         ↓
-Determine whether new knowledge is worth storing
+Decide whether new knowledge is worth storing
 
 ⸻
 
 ## Architecture changes
 
-For changes involving:
-
-* Databases
-* Global state
-* APIs
-* Core modules
-* Service boundaries
-* Authentication
-* Caching
-* External services
-
-The agent should inspect relevant project memory before changing the architecture.
-
-Typically:
+Before touching databases, global state, APIs, core modules, service boundaries, authentication, caching, or external services, the agent should read the relevant memory:
 
 PROJECT.md
 ARCHITECTURE.md
@@ -365,18 +221,7 @@ After the change, update memory only if genuinely new long-term knowledge was cr
 
 ## Debugging
 
-For bugs, inspect:
-
-TROUBLESHOOTING.md
-
-However, do not automatically add every new error.
-
-Only store a problem when:
-
-* The root cause is confirmed.
-* The solution is verified.
-* It is likely to happen again.
-* The information is not obvious from the source.
+For bugs, check TROUBLESHOOTING.md. But don't add every new error to it. Store a problem only when the root cause is confirmed, the fix is verified, it's likely to happen again, and it isn't obvious from the source.
 
 ⸻
 
@@ -394,119 +239,32 @@ your-project/
     └── TROUBLESHOOTING.md
 ```
 
-The actual agent entry point is `AGENTS.md`.
-
-Do not create:
-
-src/AGENTS.md
-components/AGENTS.md
-api/AGENTS.md
-
-Default to one root `AGENTS.md`.
+The actual agent entry point is `AGENTS.md`. Don't create src/AGENTS.md, components/AGENTS.md, or api/AGENTS.md — one root AGENTS.md is the default.
 
 ⸻
 
 ## What is AGENTS.md?
 
-AGENTS.md defines how the AI should work.
+AGENTS.md defines how the AI should work: requirement understanding, investigation, no guessing, dependency and version checking, state analysis, architecture, scope control, git hygiene, debugging, security, performance awareness, testing, verification, persistent memory, communication. It should stay relatively stable.
 
-It covers:
-
-* Requirement understanding
-* Investigation
-* No guessing
-* Dependency and version checking
-* State analysis
-* Architecture
-* Scope control
-* Git and change hygiene
-* Debugging
-* Security
-* Performance awareness
-* Testing
-* Verification
-* Persistent memory
-* Communication
-
-The file should remain relatively stable.
-
-Pick the language folder that fits your team: `en/` for English, `zh-CN/` for 简体中文.
+Pick the folder that fits your team: `en/` for English, `zh-CN/` for 简体中文.
 
 ⸻
 
 ## What is .ai/?
 
-.ai/ stores persistent project knowledge.
+.ai/ stores persistent project knowledge. It is not a conversation history, an AI diary, a raw error log, or a dump of implementation details. It holds only what future development is likely to need.
 
-It is not:
-
-* A conversation history
-* An AI diary
-* A raw error log
-* A dump of every implementation detail
-
-It should contain only information that is likely to matter to future development.
-
-PROJECT.md
-
-Stable project facts:
-
-* Project purpose
-* Technology stack
-* Important versions
-* Runtime environment
-* Important dependencies
-* Common commands
-* Deployment
-* Long-term constraints
-
-ARCHITECTURE.md
-
-Important architectural knowledge:
-
-* Module boundaries
-* Data flow
-* State ownership
-* Lifecycle
-* External services
-* Persistence
-* Non-obvious constraints
-
-Do not document every file.
-
-DECISIONS.md
-
-Important project decisions:
-
-* Why an architecture was chosen
-* Why a dependency was selected
-* Important API/data decisions
-* Important trade-offs
-* Decisions that should not be casually reversed
-
-TROUBLESHOOTING.md
-
-Confirmed recurring problems:
-
-Symptom
-↓
-Root cause
-↓
-Verified fix
-↓
-Applicable condition
-
-Do not store full logs.
+* **PROJECT.md** — stable facts: purpose, stack, important versions, runtime environment, key dependencies, common commands, deployment, long-term constraints.
+* **ARCHITECTURE.md** — non-obvious architecture: module boundaries, data flow, state ownership, lifecycle, external services, persistence, constraints. Don't document every file.
+* **DECISIONS.md** — decisions that shouldn't be casually reversed: why an architecture was chosen, why a dependency was picked, API/data trade-offs.
+* **TROUBLESHOOTING.md** — confirmed recurring problems in the shape: symptom → root cause → verified fix → applicable condition. No raw logs.
 
 ⸻
 
 ## Memory quality control
 
-This is a core part of the system.
-
-The AI should not create a memory entry for every error or correction.
-
-A piece of information should be stored only when ALL conditions are true:
+This is the heart of the system. The AI should not create a memory entry for every error or correction. Store something only when ALL of these are true:
 
 Confirmed
 +
@@ -518,15 +276,9 @@ Not already documented
 +
 Concise and precise
 
-Otherwise:
-
-Do not store it.
-
-⸻
+Otherwise — don't store it.
 
 ### Do not store
-
-Examples:
 
 npm install failed today.
 TypeScript produced an error today.
@@ -534,94 +286,52 @@ The user asked to change a button.
 A test failed once.
 Approach A failed, then approach B was tried.
 
-These usually do not have long-term value.
-
-⸻
+These rarely have long-term value.
 
 ### Store
-
-For example:
 
 The current dependency version does not support API X.
 API Y must be used instead.
 
-This is useful because it is:
+This earns its place because it's confirmed, version-specific, likely to recur, and invisible in normal application code.
 
-* Confirmed
-* Version-specific
-* Likely to recur
-* Not obvious from normal application code
+⸻
+
+## Don't turn .ai/ into a trash bin
+
+Don't shovel every error, every failed test, every attempt, chat history, temporary environment issues, or things that are already obvious in the source into .ai/.
+
+The right target: 100 sessions of development → a handful of genuinely important things saved. Not 100 sessions → thousands of log lines.
 
 ⸻
 
 ## Why only one AGENTS.md?
 
-The default setup intentionally avoids:
-
-src/AGENTS.md
-components/AGENTS.md
-api/AGENTS.md
-
-The default model is:
-
-One repository
-      ↓
-One root AGENTS.md
-
-This reduces:
-
-* Conflicting instructions
-* Duplicate rules
-* Maintenance cost
-* Agent ambiguity
-
-Directory-level instructions can be introduced later if a project genuinely requires them.
+The default deliberately avoids src/AGENTS.md, components/AGENTS.md, api/AGENTS.md. One repository → one root AGENTS.md. That keeps instructions from conflicting, rules from duplicating, maintenance cheap, and the agent unambiguous. Directory-level files can come later if a project genuinely needs them.
 
 ⸻
 
 ## Why separate memory from AGENTS.md?
 
-Rules and knowledge are different things.
-
-AGENTS.md answers:
-
-How should the AI work?
-
-.ai/ answers:
-
-What should the AI remember about this project?
-
-Separating them prevents AGENTS.md from growing indefinitely.
+Rules and knowledge are different things. AGENTS.md answers "how should the AI work?"; .ai/ answers "what should the AI remember about this project?" Keeping them apart stops AGENTS.md from growing forever.
 
 ⸻
 
 ## Framework agnostic
 
-This is not a:
-
-Next.js Agent Rules
-
-system.
-
-It is:
-
-General AI Coding Agent Rules
-
-Framework-specific information belongs in project memory.
-
-For example:
+This isn't "Next.js Agent Rules". It's general AI coding agent rules. Framework specifics live in project memory:
 
 PROJECT.md
 Framework: Next.js
 Version: ...
 
-or:
+or
 
 PROJECT.md
 Framework: Axum
 Version: ...
 
-The core agent behavior remains the same.
+The core agent behavior stays the same.
 
 ⸻
 
@@ -629,32 +339,32 @@ The core agent behavior remains the same.
 
 AGENTS.md is a template, not a contract.
 
-* Keep the sections that matter to your project and remove the rest.
+* Keep the sections that matter to your project and drop the rest.
 * Add team-specific rules (naming, commit conventions, review requirements) as new sections.
-* Keep AGENTS.md stable once it works; put changing facts in .ai/, not in AGENTS.md.
-* If you remove a section, also remove its entry from the table of contents.
+* Once AGENTS.md works, leave it alone; put changing facts in .ai/, not in AGENTS.md.
+* If you remove a section, remove its entry from the table of contents too.
 
 ⸻
 
 ## FAQ
 
-Q: Which agents support this?
+**Q: Which agents support this?**
 
-A: Any agent that reads AGENTS.md or similar project-level instruction files — Claude Code, Cursor, Codex, Cline, Roo Code, Windsurf, and others.
+A: Anything that reads AGENTS.md or similar project-level instruction files — Claude Code, Cursor, Codex, Cline, Roo Code, Windsurf, and others.
 
-Q: Which language folder should I pick?
+**Q: Which language folder should I pick?**
 
-A: Pick the folder your team reads — `en/` for English or `zh-CN/` for 简体中文. The two folders are identical in structure and differ only in language. Install one of them; installing both is unnecessary.
+A: Pick the one your team reads — `en/` for English or `zh-CN/` for 简体中文. The folders are identical in structure and differ only in language. Install one; you don't need both.
 
-Q: Is .ai/ the same as the agent's own memory?
+**Q: Is .ai/ the same as the agent's own memory?**
 
 A: No. .ai/ is curated, project-specific knowledge that survives across tools and sessions. Agent-internal memory is per-tool and not shared.
 
-Q: Can I add directory-level AGENTS.md files later?
+**Q: Can I add directory-level AGENTS.md files later?**
 
-A: Yes, but only when there is a specific, documented need. One root AGENTS.md is the default.
+A: Yes, but only when there's a specific, documented need. One root AGENTS.md is the default.
 
-Q: What if AGENTS.md conflicts with my tool's own rules?
+**Q: What if AGENTS.md conflicts with my tool's own rules?**
 
 A: Keep them consistent. AGENTS.md governs project behavior; tool settings govern tool behavior.
 
@@ -662,7 +372,7 @@ A: Keep them consistent. AGENTS.md governs project behavior; tool settings gover
 
 ## Design philosophy
 
-The complete workflow is:
+The full loop:
 
 User request
       ↓
@@ -682,11 +392,7 @@ Verify
       ↓
 Preserve only valuable knowledge
 
-The goal is not to build an AI that remembers everything.
-
-The goal is to build an AI that:
-
-understands the project better over time without becoming polluted by low-value memory.
+The goal isn't an AI that remembers everything. It's an AI that understands the project better over time without being polluted by low-value memory.
 
 ⸻
 
@@ -696,8 +402,8 @@ This is a documentation project — issues and pull requests are welcome.
 
 * Keep the `en/` and `zh-CN/` folders in sync when changing rules or templates.
 * Keep README.md and README.zh-CN.md in sync.
-* Preserve the concise, bullet-style format.
-* Explain the problem a change solves; avoid adding rules that merely restate common sense.
+* Keep the concise, bullet-style format.
+* Explain the problem a change solves; skip rules that just restate common sense.
 
 ⸻
 
